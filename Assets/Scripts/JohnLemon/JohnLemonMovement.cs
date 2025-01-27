@@ -9,8 +9,8 @@ public class JohnLemonMovement : MonoBehaviour
     //Zona de variables globales
     [Header("Movement")]
     [SerializeField]
-    private float _speed = 2.25f,
-                  _turnSpeed = 45f;
+    //private float _speed = 2.25f;
+    private float _turnSpeed = 45f;
     
     // Se guarda la dirección de movimiento
     [SerializeField]
@@ -22,6 +22,8 @@ public class JohnLemonMovement : MonoBehaviour
                   _vertical;
 
     private AudioSource _audioSource;
+
+    public GameManager GameManagerScript;
 
 
     // Start is called before the first frame update
@@ -46,7 +48,6 @@ public class JohnLemonMovement : MonoBehaviour
         _rigibody.MovePosition(transform.position + (_direction * _animator.deltaPosition.magnitude));
 
     }
-
 
     void Update()
     {
@@ -99,6 +100,15 @@ public class JohnLemonMovement : MonoBehaviour
             }
         } else {
             _audioSource.Stop();
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider info) {
+
+        if (info.CompareTag("Finish")) {
+            Debug.Log("He llegado a la meta");
+            GameManagerScript.IsPlayerAtExit = true;
         }
 
     }

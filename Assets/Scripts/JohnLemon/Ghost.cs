@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Jobs;
+using UnityEngine.UIElements;
 
 public class Ghost : MonoBehaviour
 {
 
     //Zona de variables globales
+    [Header("WayPoints")]
     //Array de posiciones para la patrulla del fantasma
     [SerializeField]
     private Transform[] _positionArray = new Transform[2];
@@ -19,6 +22,12 @@ public class Ghost : MonoBehaviour
     // Dirección del movimiento (1 = subiendo, -1 = bajando)
     private int _direction = 1;
 
+    [Header("RayCast")]
+    private Ray _ray;
+    private RaycastHit _hit;
+
+    public GameManager GameManagerScript;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +35,12 @@ public class Ghost : MonoBehaviour
 
         _currentIndex = 0;
         _posToGo = _positionArray[_currentIndex].position;
+
+    }
+
+    private void FixedUpdate() {
+
+        DetectionJohnLemon();
 
     }
 
@@ -68,6 +83,24 @@ public class Ghost : MonoBehaviour
     private void Rotate() {
 
         transform.LookAt(_posToGo);
+
+    }
+
+    private void DetectionJohnLemon() {
+        
+        //Subimos el origen del ray 1 metro en el eje y con restpeto al punto de pivote del objeto
+        _ray.origin = new Vector3(transform.position.x,transform.position.y + 1.0f, transform.position.z);
+        _ray.direction = transform.forward;
+        if (Physics.Raycast(_ray, out _hit)) {
+
+            if (_hit.collider.CompareTag("JohnLemon")){
+
+                Debug.Log("Soy el fantasma y te he pillado");
+                GameManagerScript.IsPlayerCaught = true;
+
+            }
+
+        }
 
     }
 
