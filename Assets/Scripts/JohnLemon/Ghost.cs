@@ -12,7 +12,7 @@ public class Ghost : MonoBehaviour
     [Header("WayPoints")]
     //Array de posiciones para la patrulla del fantasma
     [SerializeField]
-    private Transform[] _positionArray = new Transform[2];
+    private Transform[] _positionArray = new Transform[2] ;
     [SerializeField]
     private float _speed = 1.3f;
     //Almacenar la posición a la que se dirige el fantasma
@@ -63,13 +63,15 @@ public class Ghost : MonoBehaviour
     private void ChangePosition() {
 
         // Si el fantasma ha llegado a su destino, cambia la posicion
-        if (Vector3.Distance(transform.position, _posToGo) <= Mathf.Epsilon) {
+        // No he podido poner Mathf.Epsilon
+        if (Vector3.Distance(transform.position, _posToGo) <= 0.1f) { 
 
             // Cambiar de dirección si llegamos al tope o a la base
-            if (_currentIndex == _positionArray.Length - 1)
+            if (_currentIndex == _positionArray.Length - 1) {
                 _direction = -1; // Cambia a bajando
-            else if (_currentIndex == 0)
+            }else if (_currentIndex == 0) {
                 _direction = 1;  // Cambia a subiendo
+            }
 
             // Actualizamos el índice
             _currentIndex += _direction;
