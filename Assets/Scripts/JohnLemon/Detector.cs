@@ -6,6 +6,7 @@ public class Detector : MonoBehaviour
 {
     //Zona de variables globales
     public GameManager GameManagerScript;
+
     private void OnTriggerEnter(Collider infoAccess) {
 
         if (infoAccess.CompareTag("JohnLemon")) {
