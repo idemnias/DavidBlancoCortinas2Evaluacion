@@ -69,13 +69,9 @@ public class GameManager : MonoBehaviour
 
         _audioSource.clip = _caughtClip;
 
-        if (!_audioSource.isPlaying && !IsRestartLevel) {
-
-            Debug.Log("Has perdido");
+        if (!_audioSource.isPlaying) {
 
             _audioSource.Play();
-            retryButton.SetActive(true);
-            IsRestartLevel = true;
 
         }
 
@@ -83,11 +79,12 @@ public class GameManager : MonoBehaviour
         //Aumentar el canal alfa de la imagen poco apoco
         _caughtImage.color = new Color(_caughtImage.color.r, _caughtImage.color.g, _caughtImage.color.b, _timer / _fadeDuration);
 
-        /* La imagen de queda durante un tiempo
         if (_timer > _fadeDuration + _displayImageDuration) {
-            //SceneManager.LoadScene("JuanitoLimones");
+
+            Debug.Log("Has perdido");
+            SceneManager.LoadScene("JuanitoLimones");
+        
         }
-        */
 
     }
 
