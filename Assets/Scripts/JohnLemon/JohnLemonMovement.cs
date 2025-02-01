@@ -44,17 +44,21 @@ public class JohnLemonMovement : MonoBehaviour
 
     private void OnAnimatorMove() 
     {
-        
-        _rigibody.MovePosition(transform.position + (_direction * _animator.deltaPosition.magnitude));
+        // Solo realizara el movimiento siempre no haya perdido o ganado
+        if (!GameManagerScript.IsPlayerAtExit && !GameManagerScript.IsPlayerCaught) {
+            _rigibody.MovePosition(transform.position + (_direction * _animator.deltaPosition.magnitude));
+        }
 
     }
 
     void Update()
     {
-
-        InputsPlayer();
-        IsAnimate();
-        audioSteps();
+        // Solo detectará el movimiento siempre no haya perdido o ganado
+        if (!GameManagerScript.IsPlayerAtExit && !GameManagerScript.IsPlayerCaught) {
+            InputsPlayer();
+            IsAnimate();
+            audioSteps();
+        }
 
     }
 

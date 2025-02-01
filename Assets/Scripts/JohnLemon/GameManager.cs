@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,12 +24,16 @@ public class GameManager : MonoBehaviour
     //Contador de tiempo
     private float _timer;
 
+    [Header("Acabar Juego")]
     //Para saber si el "player" ha llegado a la salida
-    public bool IsPlayerAtExit;
+    public bool IsPlayerAtExit =  false;
     // Para saber si han pillado al player
-    public bool IsPlayerCaught;
-    // Me va a decir si "reseteo" el nivel o no
-    private bool _isRestartLevel;
+    public bool IsPlayerCaught = false;
+    // Saber cuando el nivel esta para reiniciarse
+    private bool IsRestartLevel = false;
+    // Boton de reinicio
+    [SerializeField]
+    private GameObject retryButton;
 
     [Header("Audio")]
     [SerializeField]
@@ -59,35 +65,17 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Won(){
-
-        _audioSource.clip = _wonClip;
-        if (_audioSource.isPlaying == false) {
-
-            _audioSource.Play();
-
-        }
-
-        _timer += Time.deltaTime;
-        //Aumentar el canal alfa de la imagen poco apoco
-        _wonImage.color = new Color(_wonImage.color.r, _wonImage.color.g, _wonImage.color.b, _timer / _fadeDuration);
-
-        //La imagen de queda durante un tiempo
-        if (_timer > _fadeDuration + _displayImageDuration) {
-
-            Debug.Log("Has ganado");
-            SceneManager.LoadScene("JuanitoLimones");
-
-        }
-
-    }
-
     private void Caught() {
 
         _audioSource.clip = _caughtClip;
-        if (_audioSource.isPlaying == false) {
+
+        if (!_audioSource.isPlaying && !IsRestartLevel) {
+
+            Debug.Log("Has perdido");
 
             _audioSource.Play();
+            retryButton.SetActive(true);
+            IsRestartLevel = true;
 
         }
 
@@ -95,15 +83,44 @@ public class GameManager : MonoBehaviour
         //Aumentar el canal alfa de la imagen poco apoco
         _caughtImage.color = new Color(_caughtImage.color.r, _caughtImage.color.g, _caughtImage.color.b, _timer / _fadeDuration);
 
-        //La imagen de queda durante un tiempo
+        /* La imagen de queda durante un tiempo
         if (_timer > _fadeDuration + _displayImageDuration) {
-
-            Debug.Log("Has perdido");
-            SceneManager.LoadScene("JuanitoLimones");
-
+            //SceneManager.LoadScene("JuanitoLimones");
         }
+        */
 
     }
 
+    private void Won() {
+
+        _audioSource.clip = _wonClip;
+
+        if (!_audioSource.isPlaying && !IsRestartLevel) {
+
+            Debug.Log("Has ganado");
+
+            _audioSource.Play();
+            retryButton.SetActive(true);
+            IsRestartLevel = true;
+
+        }
+
+        _timer += Time.deltaTime;
+        //Aumentar el canal alfa de la imagen poco apoco
+        _wonImage.color = new Color(_wonImage.color.r, _wonImage.color.g, _wonImage.color.b, _timer / _fadeDuration);
+
+        /* La imagen de queda durante un tiempo
+        if (_timer > _fadeDuration + _displayImageDuration) {
+            //SceneManager.LoadScene("JuanitoLimones");
+        }
+        */
+
+    }
+
+    public void _isRestartLevel() {
+
+        SceneManager.LoadScene("JuanitoLimones");
+
+    }
 
 }
