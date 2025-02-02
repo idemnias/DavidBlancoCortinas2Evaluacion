@@ -12,7 +12,7 @@ public class JohnLemonMovement : MonoBehaviour
     //private float _speed = 2.25f;
     private float _turnSpeed = 45f;
     
-    // Se guarda la dirección de movimiento
+    // Se guarda la direcciï¿½n de movimiento
     [SerializeField]
     private Vector3 _direction;
 
@@ -53,7 +53,7 @@ public class JohnLemonMovement : MonoBehaviour
 
     void Update()
     {
-        // Solo detectará el movimiento siempre no haya perdido o ganado
+        // Solo detectarï¿½ el movimiento siempre no haya perdido o ganado
         if (!GameManagerScript.IsPlayerAtExit && !GameManagerScript.IsPlayerCaught) {
             InputsPlayer();
             IsAnimate();
@@ -72,6 +72,7 @@ public class JohnLemonMovement : MonoBehaviour
         _direction = new Vector3(_horizontal, 0.0f , _vertical);
         //Normalizar
         _direction.Normalize();
+        
     }
 
     private void IsAnimate() {

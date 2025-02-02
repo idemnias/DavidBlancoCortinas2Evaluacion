@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     // Para saber si han pillado al player
     public bool IsPlayerCaught = false;
     // Saber cuando el nivel esta para reiniciarse
-    private bool IsRestartLevel = false;
+    private bool _isRestartLevel = false;
     // Boton de reinicio
     [SerializeField]
     private GameObject retryButton;
@@ -92,13 +92,13 @@ public class GameManager : MonoBehaviour
 
         _audioSource.clip = _wonClip;
 
-        if (!_audioSource.isPlaying && !IsRestartLevel) {
+        if (!_audioSource.isPlaying && !_isRestartLevel) {
 
             Debug.Log("Has ganado");
 
             _audioSource.Play();
             retryButton.SetActive(true);
-            IsRestartLevel = true;
+            _isRestartLevel = true;
 
         }
 
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void _isRestartLevel() {
+    public void IsRestartLevel() {
 
         SceneManager.LoadScene("JuanitoLimones");
 
