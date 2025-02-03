@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void IsRestartLevel() {
+    public void RestartLevel() {
 
         SceneManager.LoadScene("JuanitoLimones");
 
