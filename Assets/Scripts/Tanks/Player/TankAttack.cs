@@ -6,7 +6,7 @@ public class TankAttack : MonoBehaviour
 {
     //Variables globales
     [SerializeField]
-    private GameObject _shellPrefab;
+    private Rigidbody _shellPrefab;
     //Referencia al "gameObject" vacío que representa la posición de salida
     [SerializeField]
     private Transform _posShell;
@@ -36,11 +36,16 @@ public class TankAttack : MonoBehaviour
 
     private void Launch() {
         
-        GameObject cloneShellPrefab = Instantiate(_shellPrefab, _posShell.position, _posShell.rotation);
-
+        Rigidbody cloneShellPrefab = Instantiate(_shellPrefab, _posShell.position, _posShell.rotation);
+        
         _audioSource.Play();
 
-        cloneShellPrefab.GetComponent<Rigidbody>().velocity = _posShell.forward * _launchForce;
+        cloneShellPrefab.velocity = _posShell.forward * _launchForce;
+
+        //Utilizaremos mejor con rigibody para no necesitar obtenerlo
+        //GameObject cloneShellPrefab = Instantiate(_shellPrefab, _posShell.position, _posShell.rotation);
+        //cloneShellPrefab.GetComponent<Rigidbody>().velocity = _posShell.forward * _launchForce;
+
 
     }
 
