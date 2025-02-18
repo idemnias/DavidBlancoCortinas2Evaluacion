@@ -19,8 +19,16 @@ public class TankHealth : MonoBehaviour
     [SerializeField]
     private Image _lifeBar;
 
+    [Header("Explosions")]
+    [SerializeField]
+    private ParticleSystem _bigExplosion;
+    [SerializeField]
+    private ParticleSystem _smallExplosion;
+
     private void Awake() {
 
+        _bigExplosion.Stop();
+        _smallExplosion.Stop();
         _currentHealth = _maxHealth;
         _lifeBar.fillAmount = 1.0f;
 
@@ -28,14 +36,18 @@ public class TankHealth : MonoBehaviour
 
     private void OnCollisionEnter(Collision infoAcess) {
 
+        Debug.Log("TankHealth --> " + infoAcess.gameObject.tag);
+
         if (infoAcess.gameObject.tag == "BulletEnemy") {
 
+            _smallExplosion.Play();
             _currentHealth -= _damageEnemyBuller;
             _lifeBar.fillAmount = _currentHealth / _maxHealth;
             Destroy(infoAcess.gameObject);
 
             if (_currentHealth <= 0.0f) {
 
+                _bigExplosion.Play();
                 Death();
 
             }
@@ -47,7 +59,7 @@ public class TankHealth : MonoBehaviour
     private void Death() {
 
         Camera.main.transform.SetParent(null);
-        Destroy(gameObject);
+        Destroy(gameObject,1.0f);
 
     }
 
