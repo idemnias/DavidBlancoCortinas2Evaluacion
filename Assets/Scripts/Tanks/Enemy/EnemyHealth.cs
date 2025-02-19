@@ -47,8 +47,6 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnCollisionEnter(Collision infoAcess) {
 
-        Debug.Log("EnemyHealth --> " + infoAcess.gameObject.tag);
-
         if (infoAcess.gameObject.tag == "BulletTank") {
 
             _smallExplosion.Play();
@@ -69,7 +67,6 @@ public class EnemyHealth : MonoBehaviour
 
     private void Death() {
 
-        Camera.main.transform.SetParent(null);
         Destroy(gameObject, 1.0f);
 
     }

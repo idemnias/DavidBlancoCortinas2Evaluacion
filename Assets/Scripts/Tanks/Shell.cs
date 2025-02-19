@@ -24,8 +24,12 @@ public class Shell : MonoBehaviour
         
         _collider.enabled = false;
         _renderer.enabled = false;
-        _explosionShell.Play();
+
+        if (_audioSource.isPlaying) {
+            _audioSource.Stop();
+        }
         _audioSource.Play();
+
         if (infoCollision.gameObject.tag == "EnemyTank" || infoCollision.gameObject.tag == "PlayerTank") {
             Destroy(gameObject);
         } else {

@@ -37,7 +37,10 @@ public class TankAttack : MonoBehaviour
     private void Launch() {
         
         Rigidbody cloneShellPrefab = Instantiate(_shellPrefab, _posShell.position, _posShell.rotation);
-        
+
+        if (_audioSource.isPlaying) {
+            _audioSource.Stop();
+        }
         _audioSource.Play();
 
         cloneShellPrefab.velocity = _posShell.forward * _launchForce;

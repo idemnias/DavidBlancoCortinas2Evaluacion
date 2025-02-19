@@ -13,4 +13,5 @@ public class CanvasEnemy : MonoBehaviour
         transform.LookAt(Camera.main.transform.position);
 
     }
+
 }

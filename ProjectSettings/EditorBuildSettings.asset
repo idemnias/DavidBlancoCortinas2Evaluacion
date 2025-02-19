@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JuanitoLimones.unity
     guid: 6d4124b5a55e0644584f4040476a7efa
+  - enabled: 1
+    path: Assets/Scenes/Tanks.unity
+    guid: dc0d1bea8f88b1144bf745c68d0bec9c
   m_configObjects: {}
