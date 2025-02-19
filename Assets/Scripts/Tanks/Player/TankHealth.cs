@@ -29,7 +29,6 @@ public class TankHealth : MonoBehaviour
     [SerializeField]
     private GameManagerTanks _gameManager;
 
-
     private void Awake() {
 
         _bigExplosion.Stop();

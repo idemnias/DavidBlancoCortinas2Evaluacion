@@ -25,16 +25,17 @@ public class Shell : MonoBehaviour
         _collider.enabled = false;
         _renderer.enabled = false;
 
-        if (_audioSource.isPlaying) {
-            _audioSource.Stop();
-        }
-        _audioSource.Play();
-
-        if (infoCollision.gameObject.tag == "EnemyTank" || infoCollision.gameObject.tag == "PlayerTank") {
-            Destroy(gameObject);
+        // Asegurar que el AudioSource está activo antes de reproducirlo
+        if (_audioSource != null) {
+            _audioSource.enabled = true;  // Asegura que está habilitado
+            if (!_audioSource.isPlaying) {
+                _audioSource.Play();
+            }
         } else {
-            Destroy(gameObject, 0.5f);
-        }    
+            Debug.LogWarning("AudioSource no encontrado en Shell.");
+        }
+
+        Destroy(gameObject);  
 
     }
 

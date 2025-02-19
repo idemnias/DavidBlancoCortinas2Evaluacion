@@ -25,23 +25,18 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     private ParticleSystem _smallExplosion;
 
+    [Header("Destruction")]
+    private EnemyTankAttack _enemyTankAttack;
+    private EnemyTankMovement _enemyTankMovement;
+
     private void Awake() {
 
+        _enemyTankAttack = GetComponent<EnemyTankAttack>();
+        _enemyTankMovement = GetComponent<EnemyTankMovement>();
         _bigExplosion.Stop();
         _smallExplosion.Stop();
         _currentHealth = _maxHealth;
         _lifeBar.fillAmount = 1.0f;
-
-    }
-
-    private void Update() {
-
-        if (!_smallExplosion.isPlaying && !_smallExplosion.isStopped) {
-            _smallExplosion.Stop();
-        }
-        if (!_bigExplosion.isPlaying && !_bigExplosion.isStopped) {
-            _bigExplosion.Stop();
-        }
 
     }
 
@@ -67,6 +62,8 @@ public class EnemyHealth : MonoBehaviour
 
     private void Death() {
 
+        _enemyTankAttack.enabled = false;
+        _enemyTankMovement.enabled = false;
         Destroy(gameObject, 1.0f);
 
     }

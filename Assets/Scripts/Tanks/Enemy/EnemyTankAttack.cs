@@ -67,7 +67,7 @@ public class EnemyTankAttack : MonoBehaviour
 
                 _timer = 0.0f;
                 _isAttack = true;
-                _distance = _hit.distance;
+                _distance = _hit.distance + 4; // Le añado 3 para que vaya mas que al centro del tanque
 
             }
         }
@@ -77,7 +77,7 @@ public class EnemyTankAttack : MonoBehaviour
 
     private void Launch() {
 
-        float launchForceFinal = _launchForce * _distance * _factorLaunchForce;
+        float launchForceFinal = (_launchForce * _distance * _factorLaunchForce);
         Rigidbody cloneShellPrefab = Instantiate(_shellEnemyPrefab, _posShell.position, _posShell.rotation);
         cloneShellPrefab.velocity = _posShell.forward * launchForceFinal;
 
